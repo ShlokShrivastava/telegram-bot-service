@@ -1,4 +1,3 @@
-
 from flask import Flask, request
 import requests
 import os
@@ -11,7 +10,7 @@ TELEGRAM_CHAT_ID = os.environ.get("TELEGRAM_CHAT_ID")
 @app.route('/webhook', methods=['POST'])
 def webhook():
     data = request.json
-    message = data.get('message', 'No message provided')
+    message = data.get('custom_text') or data.get('message', 'No message provided')
 
     if TELEGRAM_TOKEN and TELEGRAM_CHAT_ID:
         send_text = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage"
